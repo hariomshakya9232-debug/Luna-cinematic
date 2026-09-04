@@ -676,17 +676,23 @@ function copyResult(){
     });
 }
 
-function upgrade(plan){
+  function upgrade(plan){
 
-  alert(
-    "⭐ " + plan +
-    " Plan चुना गया है।\n\n" +
-    "अभी यह demo है। अगली stage में " +
-    "इसी button को secure Razorpay payment से जोड़ेंगे।"
-  );
-}
+  if(plan === "Creator"){
+    window.location.href = "https://rzp.io/rzp/a3ISV2Gd";
+    return;
+  }
 
+  if(plan === "Pro"){
+    alert(
+      "🚀 Pro Plan अभी तैयार किया जा रहा है।\n\n" +
+      "अभी Creator Plan से शुरुआत करें ❤️"
+    );
+    return;
+  }
 </script>
 
 </body>
 </html>
+}
+  
