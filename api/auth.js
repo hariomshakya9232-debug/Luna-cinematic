@@ -1,4 +1,4 @@
-/auth.js
+
 import { neon } from "@neondatabase/serverless";
 import crypto from "crypto";
 
