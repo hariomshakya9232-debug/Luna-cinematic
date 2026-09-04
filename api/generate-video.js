@@ -1,4 +1,11 @@
 export default async function handler(req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "https://hariomshakya9232-debug.github.io");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
   const MODEL = "fal-ai/kling-video/v3/standard/text-to-video";
   const FAL_KEY = process.env.FAL_KEY;
 
