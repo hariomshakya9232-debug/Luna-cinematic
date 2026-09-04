@@ -232,6 +232,110 @@ function upgrade(plan){
     alert("🚀 Pro Plan अभी तैयार किया जा रहा है।\n\nअभी Creator Plan से शुरुआत करें ❤️");
   }
 }
+/* ===== LUNA SIGNUP / LOGIN ===== */
+
+const AUTH_API = "https://luna-cinematic.vercel.app/api/auth";
+
+document.body.insertAdjacentHTML("afterbegin", `
+<section id="authBox" style="
+max-width:500px;
+margin:30px auto;
+padding:25px;
+background:#171717;
+border:1px solid #444;
+border-radius:18px;
+color:white;
+font-family:Arial,sans-serif;
+">
+<h2 style="color:#d7ad55;margin-top:0">🌙 Luna Account</h2>
+
+<input id="authName" placeholder="Your Name"
+style="width:100%;box-sizing:border-box;padding:14px;margin:7px 0;background:#222;color:white;border:1px solid #555;border-radius:10px;">
+
+<input id="authEmail" type="email" placeholder="Email"
+style="width:100%;box-sizing:border-box;padding:14px;margin:7px 0;background:#222;color:white;border:1px solid #555;border-radius:10px;">
+
+<input id="authPassword" type="password" placeholder="Password (8+ characters)"
+style="width:100%;box-sizing:border-box;padding:14px;margin:7px 0;background:#222;color:white;border:1px solid #555;border-radius:10px;">
+
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="lunaSignup()" style="flex:1;padding:13px;border:0;border-radius:10px;background:#d7ad55;color:#111;font-weight:bold;">
+Sign Up
+</button>
+
+<button onclick="lunaLogin()" style="flex:1;padding:13px;border:1px solid #d7ad55;border-radius:10px;background:#222;color:#d7ad55;font-weight:bold;">
+Login
+</button>
+</div>
+
+<p id="authStatus" style="margin-bottom:0;color:#aaa"></p>
+</section>
+`);
+
+async function lunaAuth(action){
+  const name = document.getElementById("authName").value.trim();
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+
+  const status = document.getElementById("authStatus");
+
+  if(action === "signup" && name.length < 2){
+    status.innerText = "❌ अपना नाम डालें";
+    return;
+  }
+
+  if(!email || !password){
+    status.innerText = "❌ Email और password डालें";
+    return;
+  }
+
+  status.innerText = "⏳ Please wait...";
+
+  try{
+    const response = await fetch(AUTH_API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        action,
+        name,
+        email,
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    if(!response.ok){
+      throw new Error(data.error || "Authentication failed");
+    }
+
+    localStorage.setItem("lunaAuthToken",data.token);
+    localStorage.setItem("lunaUser",JSON.stringify(data.user));
+
+    credits = Number(data.user.credits);
+    saveCredits();
+
+    document.getElementById("credits").innerText = credits;
+
+    status.innerText =
+      action === "signup"
+      ? "✅ Account बन गया! आपको 5 Free Credits मिले हैं."
+      : "✅ Login successful!";
+
+  }catch(error){
+    status.innerText = "❌ " + error.message;
+  }
+}
+
+function lunaSignup(){
+  lunaAuth("signup");
+}
+
+function lunaLogin(){
+  lunaAuth("login");
+}
 </script>
 </body>
 </html>
