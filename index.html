@@ -637,34 +637,6 @@ vertical 9:16 composition, professional cinema look.`;
 जिंदगी का हिस्सा बन जाते हैं। ❤️"`;
 
   }
-
-  else if(currentTool === "caption"){
-
-    output =
-`❤️ ${input}
-
-कुछ moments camera में नहीं,
-सीधे दिल में कैद होते हैं।
-
-सच्चे रिश्ते...
-कम मिलते हैं, लेकिन जिंदगी बदल देते हैं। ✨
-
-#Friendship #BestFriends #Cinematic
-#Reels #ViralReels #Emotional
-#IndianCreator #LunaAI #AIStudio`;
-
-  }
-
-  document.getElementById("resultText").innerText = output;
-
-  document.getElementById("result").style.display = "block";
-
-  document.getElementById("result").scrollIntoView({
-    behavior:"smooth",
-    block:"nearest"
-  });
-}
-
 function copyResult(){
 
   const text =
@@ -674,9 +646,10 @@ function copyResult(){
     .then(() => {
       alert("Result copy हो गया मित्र ❤️");
     });
+
 }
 
-  function upgrade(plan){
+function upgrade(plan){
 
   if(plan === "Creator"){
     window.location.href = "https://rzp.io/rzp/a3ISV2Gd";
@@ -690,9 +663,11 @@ function copyResult(){
     );
     return;
   }
+
+}
+
 </script>
 
 </body>
 </html>
-}
   
